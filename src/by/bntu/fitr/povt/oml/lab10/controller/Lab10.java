@@ -25,5 +25,6 @@ public class Lab10 {
 
         waiter1.serveOrder(customer1.order);
         Printer.print(customer1.order);
+
     }
 }

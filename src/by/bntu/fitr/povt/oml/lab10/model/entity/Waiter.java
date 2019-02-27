@@ -54,7 +54,7 @@ public class Waiter {
         if(nightRate){
             hunk *= NIGHTFACTOR;
         }
-        this.earnings = hunk;
+        this.earnings += hunk;
     }
 
     public int getId() {
@@ -67,6 +67,30 @@ public class Waiter {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getEarnings() {
+        return earnings;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setEarnings(int earnings) {
+        this.earnings = earnings;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNightRate(boolean nightRate) {
+        this.nightRate = nightRate;
     }
 
     @Override
