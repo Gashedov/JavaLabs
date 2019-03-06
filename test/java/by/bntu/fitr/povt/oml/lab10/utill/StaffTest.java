@@ -11,14 +11,26 @@ public class StaffTest {
     Waiter w2 = new Waiter("Artem",false,11);
     Waiter w3 = new Waiter("Jenya",false,17);
     Waiter[] list = new Waiter[]{w1,w2,w3};
+    Waiter[] checkList = new Waiter[]{w2,w3};
     private Staff staff = new Staff(list);
 
+    @Test
+    public void remove() {
+        int position = 0;
+        staff.remove(position);
+        assertArrayEquals(staff.getStaffList(), checkList);
+    }
 
     @Test
     public void append() {
-        Waiter waiter1 = new Waiter();
-        staff.append(waiter1);
-        assertEquals(waiter1,staff.getByPosition(staff.length()-1));
+        staff.append(w1);
+        assertEquals(w1,staff.getByPosition(staff.getLength()-1));
+    }
+
+    @Test
+    public void remove1() {
+        staff.remove(w1);
+        assertArrayEquals(staff.getStaffList(), checkList);
     }
 
     @Test
@@ -29,14 +41,7 @@ public class StaffTest {
         assertEquals(waiter2,staff.getByPosition(position));
     }
 
-    @Test
-    public void remove() {
 
-    }
-
-    @Test
-    public void remove1() {
-    }
 
     @Test
     public void findById() {

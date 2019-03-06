@@ -25,7 +25,7 @@ public class Staff {
         return staffList;
     }
 
-    public int length(){
+    public int getLength(){
         return staffList.length;
     }
 
