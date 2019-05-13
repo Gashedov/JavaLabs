@@ -2,43 +2,46 @@ package by.bntu.fitr.povt.oml.lab10.model.entity;
 
 import by.bntu.fitr.povt.oml.lab10.utill.Staff;
 
-public class Manager extends Employee implements ManagerAction {
+public class Manager implements ChiefAction {
 
-    private String name;
-    private int earnings;
-    private boolean nightRate;
-    private int experience;
     private int id;
+    private String name;
     private Staff subordinateEmployees;
 
     private static int idCounter = 1;
 
     {
         this.id = idCounter++;
-        this.earnings = 0;
         this.subordinateEmployees = new Staff();
     }
 
-    public Manager(String name, boolean nightRate, int experience) {
-        this.name = name;
-        this.nightRate = nightRate;
-        this.experience = experience;
+    public Manager() {
     }
 
-    public void getSalary(int sum) {
-
+    public Manager(Staff subordinateEmployees){
+        this.subordinateEmployees = subordinateEmployees;
     }
 
-    public void getFine(int sum) {
-
+    public void addToSalaryList(Employee newEmployee){
+        subordinateEmployees.append(newEmployee);
     }
 
-    public void quit() {
-
+    public void fire(Employee employee) {
+        subordinateEmployees.remove(employee);
     }
 
-    public void addWaiter(Waiter newWaiter){
-        subordinateEmployees.append(newWaiter);
+    public void giveAPenalty(Employee employee, int sum) {
+        subordinateEmployees.findById(employee.getId()).getFine(sum);
+    }
+
+    public void giveSalary(int sum) {
+        for (Employee employee : subordinateEmployees.getStaffList()){
+            employee.getSalary(sum);
+        }
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -49,28 +52,7 @@ public class Manager extends Employee implements ManagerAction {
         this.name = name;
     }
 
-    public int getEarnings() {
-        return earnings;
+    public Staff getSubordinateEmployees() {
+        return subordinateEmployees;
     }
-
-    public boolean isNightRate() {
-        return nightRate;
-    }
-
-    public void setNightRate(boolean nightRate) {
-        this.nightRate = nightRate;
-    }
-
-    public int getExperience() {
-        return experience;
-    }
-
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
-    public int getId() {
-        return id;
-    }
-
 }

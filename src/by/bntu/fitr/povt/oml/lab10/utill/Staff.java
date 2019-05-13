@@ -1,27 +1,31 @@
 package by.bntu.fitr.povt.oml.lab10.utill;
 
-import by.bntu.fitr.povt.oml.lab10.model.entity.Waiter;
+import by.bntu.fitr.povt.oml.lab10.model.entity.Employee;
 
 import java.util.Arrays;
 
 public class Staff {
 
-    private Waiter[] staffList = new Waiter[0];
+    private Employee[] staffList = new Employee[0];
 
 
-    Staff(){
+    public Staff(){
 
     }
 
-    Staff(Waiter[] staffList){
+    public Staff(Employee[] staffList){
         this.staffList = staffList;
     }
 
-    Staff(Staff other){
+    public Staff(int numberOfElements){
+        staffList = new Employee[numberOfElements];
+    }
+
+    Staff(Staff other){  // TODO: - copy initializer
         this(other.getStaffList());
     }
 
-    public Waiter[] getStaffList() {
+    public Employee[] getStaffList() {
         return staffList;
     }
 
@@ -29,27 +33,27 @@ public class Staff {
         return staffList.length;
     }
 
-    public void append(Waiter waiter){
+    public void append(Employee employee){
         int size = staffList.length;
-        Waiter[] buffer = staffList;
-        staffList = new Waiter[size+1];
+        Employee[] buffer = staffList;
+        staffList = new Employee[size+1];
         System.arraycopy(buffer,0, staffList,0, size);
-        staffList[size] = waiter;
+        staffList[size] = employee;
     }
 
-    public void add(Waiter waiter, int position) {
+    public void add(Employee employee, int position) {
         int size = staffList.length;
         if(size == 0){
-            staffList = new Waiter[1];
-            staffList[0] = waiter;
+            staffList = new Employee[1];
+            staffList[0] = employee;
         }else {
             if (position >= 0 && position <= size) {
 
-                Waiter[] buffer = staffList;
-                staffList = new Waiter[size + 1];
+                Employee[] buffer = staffList;
+                staffList = new Employee[size + 1];
 
                 System.arraycopy(buffer, 0, staffList, 0, position);
-                staffList[position] = waiter;
+                staffList[position] = employee;
                 System.arraycopy(buffer, position, staffList, position + 1, size - position - 1);
             } else {
                 System.out.println("Position out of range");
@@ -57,15 +61,15 @@ public class Staff {
         }
     }
 
-    public void remove (Waiter waiter){
+    public void remove (Employee employee){
         int size = staffList.length;
         boolean success = false;
 
         if(size != 0) {
             for (int i = 0; i < size; i++) {
-                if (waiter.equals(staffList[i])) {
-                    Waiter[] buffer = staffList;
-                    staffList = new Waiter[size - 1];
+                if (employee.equals(staffList[i])) {
+                    Employee[] buffer = staffList;
+                    staffList = new Employee[size - 1];
                     System.arraycopy(buffer, 0, staffList, 0, i);
                     System.arraycopy(buffer, i+1, staffList, i, size - i - 1);
                     success = true;
@@ -85,8 +89,8 @@ public class Staff {
         int size = staffList.length;
 
         if(position >= 0 && position <= size-1) {
-            Waiter[] buffer = staffList;
-            staffList = new Waiter[size - 1];
+            Employee[] buffer = staffList;
+            staffList = new Employee[size - 1];
             System.arraycopy(buffer, 0, staffList, 0, position);
             System.arraycopy(buffer, position+1, staffList, position, size - position - 1);
             }else{
@@ -95,10 +99,10 @@ public class Staff {
 
         }
 
-    public Waiter findById(int id){
-        Waiter finding = null;
+    public Employee findById(int id){
+        Employee finding = null;
 
-        for (Waiter worker:staffList) {
+        for (Employee worker:staffList) {
             if(worker.getId() == id){
                 finding = worker;
                 break;
@@ -110,10 +114,10 @@ public class Staff {
         return finding;
     }
 
-    public Waiter findByName(String name){
-        Waiter finding = null;
+    public Employee findByName(String name){
+        Employee finding = null;
 
-        for (Waiter worker:staffList) {
+        for (Employee worker:staffList) {
             if(name.equals(worker.getName())){
                 finding = worker;
                 break;
@@ -125,8 +129,8 @@ public class Staff {
         return finding;
     }
 
-    public Waiter getByPosition(int position){
-        Waiter worker = null;
+    public Employee getByPosition(int position){
+        Employee worker = null;
         if (position >= 0 && position <= staffList.length-1) {
             worker =  staffList[position];
         }else {
@@ -135,11 +139,11 @@ public class Staff {
         return worker;
     }
 
-    public Waiter getWaiterWithMaxEarning(){
+    public Employee getWaiterWithMaxEarning(){
         int maxEarning = 0 ;
-        Waiter finding = null;
+        Employee finding = null;
 
-        for(Waiter worker:staffList){
+        for(Employee worker:staffList){
             int earnings = worker.getEarnings();
 
             if(earnings > maxEarning){
@@ -147,7 +151,7 @@ public class Staff {
             }
         }
 
-        for(Waiter worker:staffList){
+        for(Employee worker:staffList){
             if(maxEarning == worker.getEarnings())
                 finding = worker;
         }
@@ -159,12 +163,12 @@ public class Staff {
         return finding;
     }
 
-    public Waiter getWaiterWithMaxExperience(){
+    public Employee getWaiterWithMaxExperience(){
 
         int maxExperience = 0 ;
-        Waiter finding = null;
+        Employee finding = null;
 
-        for(Waiter worker:staffList){
+        for(Employee worker:staffList){
             int experience = worker.getExperience();
 
             if(experience > maxExperience){
@@ -172,7 +176,7 @@ public class Staff {
             }
         }
 
-        for(Waiter worker:staffList){
+        for(Employee worker:staffList){
             if(maxExperience == worker.getExperience())
                 finding = worker;
         }

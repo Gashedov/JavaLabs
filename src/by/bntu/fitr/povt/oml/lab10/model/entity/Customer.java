@@ -32,10 +32,6 @@ public class Customer {
         order = new Order(id, cost);
     }
 
-    public void payBill(Waiter waiter) {
-        waiter.closeOrder(order);
-    }
-
     public void addOrderPosition(int cost) {
         order.addCost(cost);
     }
@@ -46,6 +42,18 @@ public class Customer {
 
     public int getId() {
         return id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public boolean isSmoker() {
+        return smoker;
     }
 
     public void setName(String name) {

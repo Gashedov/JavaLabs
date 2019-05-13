@@ -2,15 +2,8 @@ package by.bntu.fitr.povt.oml.lab10.model.entity;
 
 public class Order {
 
-    enum Status {
-        OPENED,
-        READY,
-        SERVED,
-        CLOSED
-    }
-
     private int id;
-    private Status status;
+    private OrderStatus status;
     private int waiterId;
     private int customerId;
     private int price;
@@ -19,7 +12,7 @@ public class Order {
 
     {
         this.id = idCounter++ ;
-        this.status = Status.OPENED;
+        this.status = OrderStatus.OPENED;
     }
 
     Order(int customerId, int price){
@@ -37,7 +30,7 @@ public class Order {
 
     public void setStatus(String st) {
         try {
-            this.status = Status.valueOf(st);
+            this.status = OrderStatus.valueOf(st);
         }
         catch (IllegalArgumentException illegalArgumentException){
             System.out.println("Incorrect status argument");
@@ -46,11 +39,12 @@ public class Order {
             System.out.println("No status argument");
         }
     }
+
     public void addCost(int cost){
         this.price += cost;
     }
 
-    public static String getStatusName(Status status){
+    public static String getStatusName(OrderStatus status){
         return status.name();
     }
 
@@ -58,7 +52,7 @@ public class Order {
         return status.ordinal();
     }
 
-    public Status getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
@@ -78,9 +72,8 @@ public class Order {
         return waiterId;
     }
 
-    @Override
     public String toString() {
-        return " Order \n| id: "+ this.id + " | Status: "+ this.status + " | Waiter id: " +
+        return " Order \n| id: "+ this.id + " | OrderStatus: "+ this.status + " | Waiter id: " +
                 this.waiterId + " | Customer id: " + this.customerId + " | Cost: " + this.price;
     }
 }

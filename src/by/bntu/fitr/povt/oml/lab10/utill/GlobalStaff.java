@@ -1,6 +1,6 @@
 package by.bntu.fitr.povt.oml.lab10.utill;
 
-import by.bntu.fitr.povt.oml.lab10.model.entity.Waiter;
+import by.bntu.fitr.povt.oml.lab10.model.entity.Employee;
 
 import java.util.Arrays;
 
@@ -8,97 +8,118 @@ public class GlobalStaff {
 
     private Staff[] globalStaffList = new Staff[0];
 
-    GlobalStaff(){
+    GlobalStaff() {
 
     }
 
-    public GlobalStaff(Waiter[][] list){
+    public GlobalStaff(Employee[][] list) {
         globalStaffList = new Staff[list.length];
-        for(int i = 0; i < list.length; i++){
+        for (int i = 0; i < list.length; i++) {
             globalStaffList[i] = new Staff(list[i]);
         }
     }
 
-    public GlobalStaff(GlobalStaff other){
+    public GlobalStaff(int numberOfRows, int numberOfColumns){
+        globalStaffList = new Staff[numberOfColumns];
+        for (int i = 0; i < numberOfColumns; i++){
+            globalStaffList[i] = new Staff(numberOfRows);
+        }
+    }
+
+    public GlobalStaff(GlobalStaff other) { // TODO: - copy initializer
         this(other.getStaffList());
     }
 
-    public Waiter[][] getStaffList() {          //Testing needed
-        Waiter[][] staffList = new Waiter[globalStaffList.length][];
-        for(int i = 0; i<globalStaffList.length; i++){
+    public Employee[][] getStaffList() {
+        Employee[][] staffList = new Employee[globalStaffList.length][];
+        for (int i = 0; i < globalStaffList.length; i++) {
             staffList[i] = globalStaffList[i].getStaffList();
         }
         return staffList;
     }
 
-    public int getLength(){
+    public int getLength() {
         return globalStaffList.length;
     }
 
-    public int getLength(int i){
-        return globalStaffList[i].getLength();
+    public int getLength(int indexOfColumn) {
+        return globalStaffList[indexOfColumn].getLength();
     }
 
-    public void append(Waiter waiter, int i){
-        if(i>=0 && i <globalStaffList.length) {
-            globalStaffList[i].append(waiter);
-        }
-        else{
-            System.out.println("index out of range");
-        }
-    }
-
-    public void add(Waiter waiter, int position, int i) {
-        if (i >= 0 && i < globalStaffList.length) {
-            globalStaffList[i].add(waiter, position);
+    public void append(Employee waiter, int indexOfColumn) {
+        if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
+            globalStaffList[indexOfColumn].append(waiter);
         } else {
             System.out.println("index out of range");
         }
     }
 
-    public void remove(Waiter waiter, int i){
-        if (i >= 0 && i < globalStaffList.length) {
-            globalStaffList[i].remove(waiter);
+    public void add(Employee waiter, int position, int indexOfColumn) {
+        if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
+            globalStaffList[indexOfColumn].add(waiter, position);
         } else {
             System.out.println("index out of range");
         }
     }
 
-    public void remove(int position, int i){
-        if (i >= 0 && i < globalStaffList.length) {
-            globalStaffList[i].remove(position);
+    public void appendColumn(){
+        int size = globalStaffList.length;
+        Staff[] buffer = globalStaffList;
+        globalStaffList = new Staff[size+1];
+        System.arraycopy(buffer,0, globalStaffList,0, size);
+        globalStaffList[size] = new Staff();
+    }
+
+    public void removeColumn(int indexOfColumn){
+
+        int size = globalStaffList.length;
+
+        if(indexOfColumn >= 0 && indexOfColumn <= size-1) {
+            Staff[] buffer = globalStaffList;
+            globalStaffList = new Staff[size - 1];
+            System.arraycopy(buffer, 0, globalStaffList, 0, indexOfColumn);
+            System.arraycopy(buffer, indexOfColumn+1, globalStaffList, indexOfColumn,
+                    size - indexOfColumn - 1);
+        }else{
+            System.out.println("Position out of range");
+        }
+    }
+
+    public void remove(int position, int indexOfColumn) {
+        if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
+            globalStaffList[indexOfColumn].remove(position);
         } else {
             System.out.println("index out of range");
         }
     }
 
-    public Waiter findById(int id){
-        Waiter finding = null;
-        for(Staff list:globalStaffList){
+    public Employee findById(int id) {
+        Employee finding = null;
+        for (Staff list : globalStaffList) {
             finding = list.findById(id);
-            if(finding!=null)break;
+            if (finding != null) break;
         }
-        if(finding != null){
+        if (finding != null) {
             System.out.println("finding succeeded");
         }
         return finding;
     }
 
-    public Waiter getByPosition(int position, int i){
-        Waiter worker = null;
-        if (i >= 0 && i < globalStaffList.length) {
-            worker =  globalStaffList[i].getByPosition(position);
+    public Employee getByPosition(int position, int indexOfColumn) {
+        Employee worker = null;
+        if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
+            worker = globalStaffList[indexOfColumn].getByPosition(position);
         } else {
             System.out.println("index out of range");
         }
         return worker;
     }
 
-    public Waiter getWaiterWithMaxEarning(){
-        Waiter finding = globalStaffList[0].getWaiterWithMaxEarning();
-        for(int i = 1; i<globalStaffList.length; i++){
-            Waiter waiter = globalStaffList[i].getWaiterWithMaxEarning();
-            if(finding.getEarnings() < waiter.getEarnings()){
+    public Employee getWaiterWithMaxEarning() {
+        Employee finding = globalStaffList[0].getWaiterWithMaxEarning();
+        for (int i = 1; i < globalStaffList.length; i++) {
+            Employee waiter = globalStaffList[i].getWaiterWithMaxEarning();
+            if (finding.getEarnings() < waiter.getEarnings()) {
                 finding = waiter;
             }
         }

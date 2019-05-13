@@ -1,6 +1,8 @@
 package by.bntu.fitr.povt.oml.lab10.model.entity;
 
-public class Waiter {
+import java.util.LinkedList;
+
+public class Waiter extends Employee {
 
     private final int SINGLERATE = 10;
     private final int NIGHTFACTOR = 2;
@@ -10,14 +12,15 @@ public class Waiter {
     private int earnings;
     private boolean nightRate;
     private int experience;
+    private LinkedList<Order> orderList;
 
     private static int idCounter = 1;
 
     {
         this.id = idCounter++;
         this.earnings = 0;
+        this.orderList = new LinkedList<>();
     }
-
 
     public Waiter(String name, boolean nightRate, int experience ){
         this.name = name;
@@ -32,8 +35,18 @@ public class Waiter {
     public Waiter(){
     }
 
+    public void getSalary(int sum){
+        this.earnings += sum;
+        this.earnings += 1;
+    }
+
+    public void getFine(int sum){
+        this.earnings -= sum;
+    }
+
     public void takeOrder(Order order){
         order.setWaiter(this.id);
+        orderList.add(order);
         order.setStatus("READY");
         takeHunk();
     }
@@ -55,6 +68,10 @@ public class Waiter {
             hunk *= NIGHTFACTOR;
         }
         this.earnings += hunk;
+    }
+
+    public boolean isNightRate() {
+        return nightRate;
     }
 
     public int getId() {
@@ -83,10 +100,6 @@ public class Waiter {
 
     public void setExperience(int experience) {
         this.experience = experience;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setNightRate(boolean nightRate) {
