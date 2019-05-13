@@ -1,5 +1,7 @@
 package by.bntu.fitr.povt.oml.lab10.model.entity;
 
+import org.apache.log4j.Logger;
+
 public class Customer {
 
     private int id;
@@ -30,10 +32,11 @@ public class Customer {
 
     public void makeOrder(int cost) {
         order = new Order(id, cost);
+        logger.info("result: " + order)
     }
 
     public void addOrderPosition(int cost) {
-        order.addCost(cost);
+        logger.info ("result: " + order.addCost(cost));
     }
 
     public String getName() {

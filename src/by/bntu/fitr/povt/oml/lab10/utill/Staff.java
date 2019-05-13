@@ -3,6 +3,7 @@ package by.bntu.fitr.povt.oml.lab10.utill;
 import by.bntu.fitr.povt.oml.lab10.model.entity.Employee;
 
 import java.util.Arrays;
+import org.apache.log4j.Logger;
 
 public class Staff {
 
@@ -39,6 +40,7 @@ public class Staff {
         staffList = new Employee[size+1];
         System.arraycopy(buffer,0, staffList,0, size);
         staffList[size] = employee;
+        logger.info ("result: Appended");
     }
 
     public void add(Employee employee, int position) {
@@ -59,6 +61,7 @@ public class Staff {
                 System.out.println("Position out of range");
             }
         }
+        logger.info("result: Added");
     }
 
     public void remove (Employee employee){
@@ -78,10 +81,13 @@ public class Staff {
             }
             if (!success) {
                 System.out.println("Object is not found");
+                logger.error("Object is not found");
             }
         }else{
             System.out.println("List is empty");
+            logger.warn("List is empty");
         }
+        logger.info("result: Removed");
 
     }
 
@@ -95,8 +101,10 @@ public class Staff {
             System.arraycopy(buffer, position+1, staffList, position, size - position - 1);
             }else{
             System.out.println("Position out of range");
-        }
+            logger.warn ("Position out of range");
 
+        }
+        logger.info("result: Removed");
         }
 
     public Employee findById(int id){
@@ -120,11 +128,13 @@ public class Staff {
         for (Employee worker:staffList) {
             if(name.equals(worker.getName())){
                 finding = worker;
+                logger.info("result: is founded");
                 break;
             }
         }
         if(finding == null){
             System.out.println("Object is not found");
+            logger.info ("result: Object is not found");
         }
         return finding;
     }

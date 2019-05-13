@@ -1,6 +1,8 @@
 package by.bntu.fitr.povt.oml.lab10.model.entity;
 
 import java.util.LinkedList;
+import org.apache.log4j.Logger;
+
 
 public class Waiter extends Employee {
 
@@ -38,10 +40,12 @@ public class Waiter extends Employee {
     public void getSalary(int sum){
         this.earnings += sum;
         this.earnings += 1;
+        logger.info("Salary is good");
     }
 
     public void getFine(int sum){
         this.earnings -= sum;
+        logger.info ("Fine is good :b");
     }
 
     public void takeOrder(Order order){
@@ -49,25 +53,30 @@ public class Waiter extends Employee {
         orderList.add(order);
         order.setStatus("READY");
         takeHunk();
+        logger.info("result: Order is taken");
     }
 
     public void serveOrder(Order order){
         order.setStatus("SERVED");
         takeHunk();
+        logger.info ("result: Order is served");
 
     }
 
     public void closeOrder(Order order){
         order.setStatus("CLOSED");
         takeHunk();
+        logger.info ("result: Order is closed");
     }
 
     private void takeHunk(){
         int hunk = SINGLERATE* (this.experience+1);
         if(nightRate){
             hunk *= NIGHTFACTOR;
+            logger.warn("NIGTFACTOR");
         }
         this.earnings += hunk;
+        logger.info ("result: Hunk is taken");
     }
 
     public boolean isNightRate() {

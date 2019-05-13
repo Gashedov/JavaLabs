@@ -4,6 +4,8 @@ import by.bntu.fitr.povt.oml.lab10.model.entity.Employee;
 
 import java.util.Arrays;
 
+import org.apache.log4j.Logger;
+
 public class GlobalStaff {
 
     private Staff[] globalStaffList = new Staff[0];
@@ -34,6 +36,7 @@ public class GlobalStaff {
         Employee[][] staffList = new Employee[globalStaffList.length][];
         for (int i = 0; i < globalStaffList.length; i++) {
             staffList[i] = globalStaffList[i].getStaffList();
+            logger.info ("result: Staff list is getted");
         }
         return staffList;
     }
@@ -49,16 +52,20 @@ public class GlobalStaff {
     public void append(Employee waiter, int indexOfColumn) {
         if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
             globalStaffList[indexOfColumn].append(waiter);
+            logger.info ("result: Appended");
         } else {
             System.out.println("index out of range");
+            logger.warn("index out of range");
         }
     }
 
     public void add(Employee waiter, int position, int indexOfColumn) {
         if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
             globalStaffList[indexOfColumn].add(waiter, position);
+            logger.info ("result: Added");
         } else {
             System.out.println("index out of range");
+            logger.warn("index out of range");
         }
     }
 
@@ -68,6 +75,7 @@ public class GlobalStaff {
         globalStaffList = new Staff[size+1];
         System.arraycopy(buffer,0, globalStaffList,0, size);
         globalStaffList[size] = new Staff();
+        logger.info ("result: Colomn is appended");
     }
 
     public void removeColumn(int indexOfColumn){
@@ -80,16 +88,20 @@ public class GlobalStaff {
             System.arraycopy(buffer, 0, globalStaffList, 0, indexOfColumn);
             System.arraycopy(buffer, indexOfColumn+1, globalStaffList, indexOfColumn,
                     size - indexOfColumn - 1);
+            logger.info ("result: Colomn is removed");
         }else{
             System.out.println("Position out of range");
+            logger.warn ("Position out of range");
         }
     }
 
     public void remove(int position, int indexOfColumn) {
         if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
             globalStaffList[indexOfColumn].remove(position);
+            logger.info ("result: Is removed");
         } else {
             System.out.println("index out of range");
+            logger.warn ("Index out of range");
         }
     }
 
@@ -97,10 +109,14 @@ public class GlobalStaff {
         Employee finding = null;
         for (Staff list : globalStaffList) {
             finding = list.findById(id);
-            if (finding != null) break;
+            if (finding != null){
+                logger.info ("result: finding unsucceeded");
+                break;
+            }
         }
         if (finding != null) {
             System.out.println("finding succeeded");
+            logger.info ("result: finding succeeded");
         }
         return finding;
     }
@@ -109,8 +125,10 @@ public class GlobalStaff {
         Employee worker = null;
         if (indexOfColumn >= 0 && indexOfColumn < globalStaffList.length) {
             worker = globalStaffList[indexOfColumn].getByPosition(position);
+
         } else {
             System.out.println("index out of range");
+            logger.warn ("index out of range");
         }
         return worker;
     }
