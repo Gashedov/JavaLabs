@@ -1,6 +1,7 @@
 package by.bntu.fitr.povt.oml.lab10.model.entity;
 
 import by.bntu.fitr.povt.oml.lab10.utill.Staff;
+import org.apache.log4j.Logger;
 
 public class Manager implements ChiefAction {
 
@@ -23,19 +24,19 @@ public class Manager implements ChiefAction {
     }
 
     public void addToSalaryList(Employee newEmployee){
-        subordinateEmployees.append(newEmployee);
+        logger.info("result: " + subordinateEmployees.append(newEmployee));
     }
 
     public void fire(Employee employee) {
-        subordinateEmployees.remove(employee);
+        logger.info("result: " + subordinateEmployees.remove(employee));
     }
 
     public void giveAPenalty(Employee employee, int sum) {
-        subordinateEmployees.findById(employee.getId()).getFine(sum);
+        logger.info ("result: " + subordinateEmployees.findById(employee.getId()).getFine(sum));
     }
 
     public void giveSalary(int sum) {
-        for (Employee employee : subordinateEmployees.getStaffList()){
+        for (Employee employee : logger.info("result: " + subordinateEmployees.getStaffList())){
             employee.getSalary(sum);
         }
     }
